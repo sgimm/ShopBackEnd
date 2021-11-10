@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using ValkyraShop.DatabaseDto.Shop;
@@ -15,7 +16,6 @@ namespace ValkyraShop.Controllers
         {
             _customerService = customerService;
         }
-
         [HttpGet("Customers")]
         public Customer GetCustomer()
         {

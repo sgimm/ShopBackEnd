@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
 using System.Linq;
 using System.Text;
 using ValkyraShop.DataBase;
@@ -28,7 +29,8 @@ namespace ValkyraShop
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials().Build());
+                //options.AddPolicy("CorsPolicy", builder => builder.SetIsOriginAllowedToAllowWildcardSubdomains().WithOrigins("https://*.valkyra.de", "https://valkyra.de").WithMethods("GET", "POST", "PUT", "DELETE").AllowAnyHeader().AllowCredentials().Build());                
+                options.AddPolicy("CorsPolicy", builder => builder.WithOrigins("https://*.valkyra.de", "https://valkyra.de").WithMethods("GET", "POST", "PUT", "DELETE").AllowAnyHeader().AllowCredentials().Build());
             });
             services.AddControllers();
             services.AddAuthentication(x=>
@@ -73,7 +75,6 @@ namespace ValkyraShop
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseHttpsRedirection();
 
             UpdateDatabase(app);
@@ -83,9 +84,12 @@ namespace ValkyraShop
 
             app.UseRouting();
 
+            app.UseCors("CorsPolicy");
+
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
