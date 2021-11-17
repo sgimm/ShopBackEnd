@@ -14,7 +14,7 @@ namespace ValkyraShop.DataBase
 
         public List<CustomerAddress> GetAddresses(int customerId)
         {
-            return null;
+            return _dbContext.CustomerAddresses.Where(address => address.CustomerId == customerId).ToList();
         }
 
         public int AddAddress(CustomerAddress customerAddress)
@@ -28,9 +28,9 @@ namespace ValkyraShop.DataBase
             return 0;
         }
 
-        public int DeleteCustomer(CustomerAddress customerAddress)
+        public int DeleteCustomer(int id)
         {
-            _dbContext.CustomerAddresses.Remove(customerAddress);
+            _dbContext.CustomerAddresses.Remove(_dbContext.CustomerAddresses.FirstOrDefault(a => a.Id == id));
             return _dbContext.SaveChanges();
         }
     }

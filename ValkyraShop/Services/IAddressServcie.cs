@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ValkyraShop.DatabaseDto.Shop;
+﻿using System.Collections.Generic;
+using ValkyraShop.Dtos;
 
 namespace ValkyraShop.Services
 {
     public interface IAddressServcie
     {
-        int AddAddress(CustomerAddress customerAddress);
-        List<CustomerAddress> GetAddresses(int CustomerId);
-        int UpdateAddress(CustomerAddress customerAddress);
-        int DeleteAddress(CustomerAddress customerAddress);
+        int AddAddress(CustomerAddressDto customerAddress);
+        List<CustomerAddressDto> GetAddresses(int CustomerId);
+        int UpdateAddress(CustomerAddressDto customerAddress);
+        int DeleteAddress(int addressId);
     }
 }

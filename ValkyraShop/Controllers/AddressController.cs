@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using ValkyraShop.DatabaseDto.Shop;
+using ValkyraShop.Dtos;
 using ValkyraShop.Services;
 
 namespace ValkyraShop.Controllers
@@ -19,26 +18,26 @@ namespace ValkyraShop.Controllers
             _addressServcie = addressServcie;
         }
 
-        [HttpGet("addresses")]
-        public IActionResult GetAddresses()
+        [HttpGet("{id}/addresses")]
+        public IActionResult GetAddress(int id)
         {
             return Ok();
         }
 
         [HttpPost("addresses")]
-        public IActionResult PostAddress(CustomerAddress customerAddress)
+        public IActionResult PostAddress([FromBody]CustomerAddressDto customerAddress)
         {
             if (int.Parse(HttpContext.User.Claims.ToList()[1].Value) != customerAddress.CustomerId)
                 return Unauthorized();
 
             if (_addressServcie.AddAddress(customerAddress) != 0)
-                return BadRequest();
+                return NotFound();
 
             return Ok();
         }
 
-        [HttpDelete("addresses")]
-        public IActionResult DeleteAddress(CustomerAddress customerAddress)
+        [HttpDelete("addresses/{id}")]
+        public IActionResult DeleteAddress(int id)
         {
             return Ok();
         }

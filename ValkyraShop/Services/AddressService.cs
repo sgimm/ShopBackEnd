@@ -1,36 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ValkyraShop.DataBase;
 using ValkyraShop.DatabaseDto.Shop;
+using ValkyraShop.Dtos;
+using ValkyraShop.Mappers;
 
 namespace ValkyraShop.Services
 {
     public class AddressService : IAddressServcie
     {
         private AddressRepository _addressRepository;
+        private IAddressMappingService _addressMappingService;
 
-        public AddressService(ShopDbContext shopDbContext)
+        public AddressService(ShopDbContext shopDbContext, IAddressMappingService addressMappingService)
         {
             _addressRepository = new AddressRepository(shopDbContext);
-        }
-        public int AddAddress(CustomerAddress customerAddress)
-        {
-            return 0;
+            _addressMappingService = addressMappingService;
         }
 
-        public int DeleteAddress(CustomerAddress customerAddress)
+        public int AddAddress(CustomerAddressDto customerAddress)
+        {
+            return _addressRepository.AddAddress(_addressMappingService.ToEntity(customerAddress));
+        }
+
+        public int DeleteAddress(int addressId)
         {
             throw new NotImplementedException();
         }
 
-        public List<CustomerAddress> GetAddresses(int customerId)
+        public List<CustomerAddressDto> GetAddresses(int customerId)
         {
-            return _addressRepository.GetAddresses(customerId);
+            List<CustomerAddress> customerAddresses = _addressRepository.GetAddresses(customerId);
+            List<CustomerAddressDto> customerAddressDtos = new List<CustomerAddressDto>();
+            for(int i = 0; i < customerAddresses.Count; i++)
+            {
+
+            }
+            return null;
         }
 
-        public int UpdateAddress(CustomerAddress customerAddress)
+        public int UpdateAddress(CustomerAddressDto customerAddress)
         {
             throw new NotImplementedException();
         }

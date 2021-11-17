@@ -1,13 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ValkyraShop.DatabaseDto.Shop
+namespace ValkyraShop.Dtos
 {
-    public enum AddressTypes
-    {
-        Invoice,
-        Delivery
-    }
-    public class CustomerAddress:BaseDbDto
+    public class CustomerAddressDto
     {
         [Required]
         public string FirstName { get; set; }
@@ -21,9 +20,7 @@ namespace ValkyraShop.DatabaseDto.Shop
         public string City { get; set; }
         public string AddressInformation { get; set; }
         [Required]
-        public Country Country { get; set; }
         public int CountryId { get; set; }
         public int CustomerId { get; set; }
-        public Customer Customer { get; set; }
     }
 }

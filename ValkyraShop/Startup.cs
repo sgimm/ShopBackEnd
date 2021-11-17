@@ -11,6 +11,7 @@ using System;
 using System.Linq;
 using System.Text;
 using ValkyraShop.DataBase;
+using ValkyraShop.Mappers;
 using ValkyraShop.Services;
 
 namespace ValkyraShop
@@ -66,6 +67,9 @@ namespace ValkyraShop
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IAddressServcie, AddressService>();
+
+            services.AddScoped<IAddressMappingService, AddressMappingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
